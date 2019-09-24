@@ -1,0 +1,4 @@
+backend/development/
+backend/flaskr/*.pyc
+backend/flaskr/__pycache__/
+backend/instance/
