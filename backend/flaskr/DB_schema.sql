@@ -5,7 +5,13 @@ DROP TABLE IF EXISTS lecturer_module;
 DROP TABLE IF EXISTS student_module;
 DROP TABLE IF EXISTS attendance;
 DROP TABLE IF EXISTS markAttendance;
+DROP TABLE IF EXISTS user;
 
+CREATE TABLE user (
+    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    username TEXT NOT NULL,
+    password TEXT NOT NULL
+);
 CREATE TABLE student (
     studentNumber TEXT UNIQUE PRIMARY KEY,
     surname TEXT NOT NULL,

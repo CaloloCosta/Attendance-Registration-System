@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+    Register
+{% endblock %}
+
+{% block header %}<h1>Refister new Student or Lecturer</h1>{% endblock%}
+{% block content %}
+    <form action="" method="POST">
+        <label for="id">Student/Lecturer ID</label>
+        <input name="id" id="id" type="text" placeholder="21800731/ccosta">
+        <label for="surname">Surname</label>
+        <input name="surname" id="surname" type="text" placeholder="Doe">
+        <label for="initial">Initials</label>
+        <input name="initials" id="initials" type="text" placeholder="cdc">
+        <label for="role">Role</label>
+        <select name="role" id="">
+            <option value="student">Student</option>
+            <option value="lecturer">Lecturer</option>
+        </select>
+        <label for="programme">Programme</label>
+        <span>For Students only</span>
+        <input name="programme" id="programme" type="text" placeholder="Computer science">
+        <input type="submit" value="Register">
+    </form>
+
+{% endblock%}
+

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>{% block title %}{% endblock%} - AS</title>
+</head>
+<body>
+    <nav>
+        {% if g.lecturer %}
+        <li><a href="#">Create class</a></li>
+        {% elif g.student %}
+        <li><a href="#">Mark Attendence</a></li>
+        {% elif g.user %}
+        <li><a href="#">Register</a></li>
+        {% endif %}
+        <li><a href="#">Log out</a></li>
+    </nav>
+
+    <div class="content">
+        {% block header %}{% endblock%}
+        {% block content %}{% endblock%}
+    </div>
+    
+</body>
+</html>
