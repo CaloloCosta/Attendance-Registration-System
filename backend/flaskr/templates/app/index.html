@@ -1,2 +1,10 @@
 {% extends 'base.html' %}
 {% block title %}Admin{% endblock%}
+
+{% block header %}
+{% if g.admin%}
+<h1>Admin</h1>
+{% else %}
+<h1>WElcome</h1>
+{% endif %}
+{% endblock%}

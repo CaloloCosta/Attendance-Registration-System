@@ -13,6 +13,7 @@ def index():
     return render_template('app/index.html')
 
 @bp.route('/register', methods=('GET','POST'))
+@login_required
 def register():
     if request.method == 'POST':
         db = get_db()
@@ -41,7 +42,7 @@ def register():
                     (id,surname,initials,programme,generate_password_hash('DEFAULT'))
                 )
                 db.commit()
-                return redirect(url_for('auth.login'))
+                return redirect(url_for('app.register'))
         elif role == 'lecturer':
             if db.execute(
                 'SELECT lecturerId FROM lecturer WHERE lecturerId = ?',(id,)
@@ -54,6 +55,6 @@ def register():
                     (id,surname,initials,generate_password_hash('DEFAULT'))
                 )
                 db.commit()
-                return redirect(url_for('auth.login'))
+                return redirect(url_for('auap.login'))
         flash(error)
-    return render_template('auth/register.html')
+    return render_template('app/register.html')

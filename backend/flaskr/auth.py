@@ -23,28 +23,58 @@ def login():
             user = db.execute(
             'SELECT * FROM user WHERE username = ?',(username,)
             ).fetchone()
-            print(user)
-            if user is None: 
-                error = 'Incorrect uername'
-            elif not check_password_hash(user['password'],password):
-                error = 'INcorrect password'
-            if error is None:
-                session.clear()
-                session['user_id'] = user['id']
+            if sessionHandler(user,role,user['id'],password,error):
                 return redirect(url_for('index'))
-            flash(error)
+        elif role == 'lecturer':
+            user = db.execute(
+                'SELECT * FROM lecturer WHERE lecturerId = ?',(username,)
+            ).fetchone()
+            if sessionHandler(user,role,user['lecturerId'],password,error):
+                return redirect(url_for('index'))
+        elif role == 'student':
+            user = db.execute(
+                'SELECT * FROM student WHERE studentNumber = ?',(username,)
+            ).fetchone()
+            if sessionHandler(user,role,user['studentNumber'],pawwsord,error):
+                return redirect(url_for('index'))
     return render_template('auth/login.html')
+
+def sessionHandler(user, userType, userId,password,error):
+    print(user)
+    if user is None: 
+        error = 'Incorrect uername'
+    elif not check_password_hash(user['password'],password):
+        error = 'INcorrect password'
+    if error is None:
+        session.clear()
+        session['user_id'] = userId
+        session['user_type'] = userType
+    return True
 
 @bp.before_app_request
 def load_logged_in_user():
     user_id = session.get('user_id')
+    user_type = session.get('user_type')
 
-    if user_id is None:
-        g.user = None
-    else:
-        g.user = get_db().execute(
-            'SELECT * FROM User WHERE id = ?', (user_id,)
+    if user_type is None:
+        g.user_type = None
+    elif user_type == 'admin':
+        g.user_type = 'admin'
+        g.admin = get_db().execute(
+            'SELECT * FROM user WHERE id = ?', (user_id,)
         ).fetchone()
+    elif user_type == 'lecturer':
+        g.user_type = 'lecturer'
+        g.lecturer = get_db().execute(
+            'SELECT * FROM lecturer WHERE id = ?', (user_id,)
+        ).fetchone()
+    else:
+        g.user_type = 'student'
+        g.student = get_db().execute(
+            'SELECT * FROM student WHERE id = ?', (user_id,)
+        ).fetchone()
+
+
 
 # logout
 @bp.route('/logout')
@@ -56,7 +86,7 @@ def logout():
 def login_required(view):
     @functools.wraps(view)
     def wrapped_view(**kwargs):
-        if g.user is None:
+        if g.user_type is None:
             return redirect(url_for('auth.login'))
         return view(**kwargs)
     return wrapped_view

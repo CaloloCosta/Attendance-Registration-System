@@ -11,12 +11,17 @@
     <nav>
         {% if g.lecturer %}
         <li><a href="#">Create class</a></li>
+        <li><a href="{{ url_for('auth.logout') }}">Log out</a></li>
         {% elif g.student %}
         <li><a href="#">Mark Attendence</a></li>
-        {% elif g.user %}
-        <li><a href="#">Register</a></li>
+        <li><a href="{{ url_for('auth.logout') }}">Log out</a></li>
+        {% elif g.admin %}
+        <li><a href="{{ url_for('at.register') }}">Register</a></li>
+        <li><a href="#">{{ g.admin['username'] }}</a></li>
+        <li><a href="{{ url_for('auth.logout') }}">Log out</a></li>
+        {% else %}
+        <li><a href="{{ url_for('auth.login') }}">Log in</a></li>
         {% endif %}
-        <li><a href="#">Log out</a></li>
     </nav>
 
     <div class="content">
