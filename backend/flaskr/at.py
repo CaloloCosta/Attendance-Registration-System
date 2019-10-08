@@ -22,6 +22,7 @@ def index():
 def attendance():
     db = get_db()
     attendances = db.execute('SELECT * FROM attendance').fetchall() 
+    print(request)
     if request.method == 'POST':
         error = None
         if request.form['id']:
@@ -33,34 +34,33 @@ def attendance():
                 db.execute('UPDATE attendance SET isOpen = ?  WHERE attendanceId = ?',(True, request.form['id']))
                 db.commit()
                 return redirect(url_for('at.attendance'))
-        
-        date = request.form['date']
-        isOpen = True if request.form['isOpen'] == 'True' else False
-        print(isOpen)
-        mode_of_study = request.form['mode_of_study']
-        print(mode_of_study)
-        if not date:
-            error = 'The date is required'
-        # elif isOpen != True or isOpen != False:
-        #     error = 'Attendance status is required'
-        elif not mode_of_study:
-            error = 'Mode of study is required'
-        elif db.execute(
-            'SELECT * FROM attendance WHERE attendanceDate = ? AND mode_of_study = ?',(date,mode_of_study,)
-            ).fetchone() is not None:
-            error = 'Attendance was created already'
-        
-        if error is None:
+        if not request.form['id']:
+            date = request.form['date']
             print(date)
-            db.execute(
-                'INSERT INTO attendance VALUES(null,?,?,?)',(date,isOpen,mode_of_study)
-            )
-            db.commit()
-            return redirect(url_for('at.attendance'))
-        else:
-            print(error)
-
-    
+            isOpen = True if request.form['isOpen'] == 'True' else False
+            print(isOpen)
+            mode_of_study = request.form['mode_of_study']
+            print(mode_of_study)
+            if not date:
+                error = 'The date is required'
+            # elif isOpen != True or isOpen != False:
+            #     error = 'Attendance status is required'
+            elif not mode_of_study:
+                error = 'Mode of study is required'
+            elif db.execute(
+                'SELECT * FROM attendance WHERE attendanceDate = ? AND mode_of_study = ?',(date,mode_of_study,)
+                ).fetchone() is not None:
+                error = 'Attendance was created already'
+            
+            if error is None:
+                print(date)
+                db.execute(
+                    'INSERT INTO attendance VALUES(null,?,?,?)',(date,isOpen,mode_of_study)
+                )
+                db.commit()
+                return redirect(url_for('at.attendance'))
+            else:
+                print(error)    
     return render_template('app/attendance.html',attendances=attendances)
     
 @bp.route('/register', methods=('GET','POST'))
