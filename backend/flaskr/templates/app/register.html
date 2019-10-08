@@ -5,7 +5,7 @@
     Register
 {% endblock %}
 
-{% block header %}<h1>Refister new Student or Lecturer</h1>{% endblock%}
+{% block header %}<h1>Register new Student or Lecturer</h1>{% endblock%}
 {% block content %}
     <form action="" method="POST">
         <label for="id">Student/Lecturer ID</label>
@@ -22,6 +22,11 @@
         <label for="programme">Programme</label>
         <span>For Students only</span>
         <input name="programme" id="programme" type="text" placeholder="Computer science">
+        <label for="mode_of_study">Study Mode</label>
+        <select name="mode_of_study" id="">
+            <option value="FM">Full Mode</option>
+            <option value="PT">Part Time</option>
+        </select>
         <input type="submit" value="Register">
     </form>
 

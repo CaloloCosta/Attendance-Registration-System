@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+    Create attendance
+{% endblock %}
+
+{% block header %}<h1>Create attendance</h1>{% endblock%}
+
+{% block content %}
+
+<form action="" method="POST">
+    <label for="date">Date</label>
+    <input type="date" name="date" id="">
+    <label for="isOpen">attendance Status</label><br>
+    <input type="radio" name="isOpen" id="" value="True" style="display: inline">Open<br>
+    <input type="radio" name="isOpen" id="" value="False" style="display: inline">Close<br>
+    <label for="mode_of_study">Study Mode</label>
+    <select name="mode_of_study" id="">
+        <option>Full Mode</option>
+        <option>Part Time</option>
+    </select>
+    <input type="submit" value="Create">
+</form>
+<h1>See attedances</h1>
+<table border="1">
+    <tr>
+        <th>ID</th>
+        <th>Date</th>
+        <th>Study Mode</th>
+        <th>Status</th>
+        <th>Change Status</th>
+    </tr>
+{% for attendance in attendances %}
+    <tr>
+        <td>{{ attendance['attendanceId'] }}</td>
+        <td>{{ attendance['attendanceDate'] }}</td>
+        <td>{{ attendance['mode_of_study'] }}</td>
+        {% if attendance['isOpen'] == 1%}
+        <td>Open</td>
+        <td>
+            <form action="" method="POST">
+                <input type="text" name="id" value="{{ attendance['attendanceId'] }}" style="display: none">
+                <input type="text" name="action" value="close" style="display: none">
+            <input type="submit" value="Close">
+            </form>
+        </td>
+        {% else %}
+        <td>Closed</td>
+        <td>
+                <form action="" method="POST">
+                        <input type="text" name="id" value="{{ attendance['attendanceId'] }}" style="display: none">
+                        <input type="text" name="action" value="open" style="display: none">
+                <input type="submit" value="Open">
+                </form>
+            </td>
+        {% endif %}
+    </tr>
+{% endfor %}
+</table>
+
+{% endblock%}
+
+
+<!-- CREATE TABLE attendance (
+    attendanceId INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    attendanceDate DATETIME NOT NULL,
+    isOpen BOOLEAN NOT NULL,
+    mode_of_study TEXT NOT NULL
+); -->

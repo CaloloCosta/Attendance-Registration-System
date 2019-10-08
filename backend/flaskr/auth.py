@@ -19,6 +19,8 @@ def login():
         error = None
         #db.execute('INSERT INTO user (username,password) values(?,?)',(username,generate_password_hash('admin')))
         #db.commit()
+        # u = db.execute('SELECT * FROM student').fetchone()
+        # print('user: ',u['studentNumber'])
         if role == 'admin':
             user = db.execute(
             'SELECT * FROM user WHERE username = ?',(username,)
@@ -35,7 +37,7 @@ def login():
             user = db.execute(
                 'SELECT * FROM student WHERE studentNumber = ?',(username,)
             ).fetchone()
-            if sessionHandler(user,role,user['studentNumber'],pawwsord,error):
+            if sessionHandler(user,role,user['studentNumber'],password,error):
                 return redirect(url_for('index'))
     return render_template('auth/login.html')
 
@@ -66,12 +68,12 @@ def load_logged_in_user():
     elif user_type == 'lecturer':
         g.user_type = 'lecturer'
         g.lecturer = get_db().execute(
-            'SELECT * FROM lecturer WHERE id = ?', (user_id,)
+            'SELECT * FROM lecturer WHERE lecturerId = ?', (user_id,)
         ).fetchone()
     else:
         g.user_type = 'student'
         g.student = get_db().execute(
-            'SELECT * FROM student WHERE id = ?', (user_id,)
+            'SELECT * FROM student WHERE studentNumber = ?', (user_id,)
         ).fetchone()
 
 

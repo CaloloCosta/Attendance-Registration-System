@@ -10,10 +10,13 @@
 <body>
     <nav>
         {% if g.lecturer %}
-        <li><a href="#">Create class</a></li>
+        <li><a href="{{ url_for('at.attendance') }}">Create Attendence</a></li>
+        <li><a href="{{ url_for('at.attendance') }}">See Attendence</a></li>
         <li><a href="{{ url_for('auth.logout') }}">Log out</a></li>
+        <li><a href="#">{{ g.lecturer['lecturerId'] }}</a></li>
         {% elif g.student %}
         <li><a href="#">Mark Attendence</a></li>
+        <li><a href="#">{{ g.student['studentNumber'] }}</a></li>
         <li><a href="{{ url_for('auth.logout') }}">Log out</a></li>
         {% elif g.admin %}
         <li><a href="{{ url_for('at.register') }}">Register</a></li>
