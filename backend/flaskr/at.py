@@ -115,7 +115,7 @@ def register():
 def markAttendance():
     db = get_db()
     if request.method == 'POST':
-        atId = request.form['atId'];
+        atId = request.form['atId']
         stNumber = request.form['stNumber']
         error = None
         if not atId:
@@ -148,9 +148,11 @@ def seeAttendance(atId):
     print(atId)
     t = int(atId)
     attendances = db.execute(
-            'SELECT st.studentNumber, st.surname, at.attendanceDate, at.isOpen, ma.present, at.mode_of_study FROM markAttendance as ma Join student as st on st.studentNumber = ma.studentNumber JOIN attendance as at ON at.attendanceId = ma.attendanceId WHERE ma.attendanceId = ?',(t,)
+            'SELECT st.studentNumber, st.surname, at.attendanceDate, at.isOpen, ma.present, at.mode_of_study FROM markAttendance as ma Join student as st ON st.studentNumber = ma.studentNumber JOIN attendance as at ON at.attendanceId = ma.attendanceId WHERE ma.attendanceId = ?',(t,)
     ).fetchall()
-    return render_template('app/seeAttendance.html', attendances = attendances )
-
+    if attendances:
+        return render_template('app/seeAttendance.html', attendances = attendances )
+    else:
+        return redirect(url_for('at.attendance'))
     
     
