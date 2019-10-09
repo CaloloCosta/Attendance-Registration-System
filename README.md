@@ -14,6 +14,7 @@ First project for Software Engineering 1
   <li>Activate the development enviroment: <code>. development/bin/activate</code></li>
   <li>Expoprt FLASK_APP: <code>export FLASK_APP=flaskr/</code></li>
   <li>Expoprt FLASK_ENV: <code>export FLASK_ENV=development/</code></li>
+  <li>Run the db <code>flask init-db</code></li>
   <li>Then run the command: <code>flask run/</code></li>
 </ol>
 
