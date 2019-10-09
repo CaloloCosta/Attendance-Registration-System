@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+    See attendance
+{% endblock %}
+
+{% block header %}<h1>See attendance</h1>{% endblock%}
+
+{% block content %}
+
+
+<h1>See attedances</h1>
+<table border="1">
+    <tr>
+        <th>Date: {{attendances[0]['attendanceDate']}}</th>
+    </tr>
+    <tr>
+        <th>Study Mode: {{attendances[0]['mode_of_study']}}</th>
+    </tr>
+    <tr>
+        <th>Student Number</th>
+        <th>Surname</th>
+        <th>Present</th>
+    </tr>
+{% for attendance in attendances %}
+    <tr>
+        <td>{{ attendance['studentNumber'] }}</td>
+        <td>{{ attendance['surname'] }}</td>
+        <td>{{ attendance['present'] }}</td>
+    </tr>
+
+
+{% endfor %}
+</table>
+
+{% endblock%}
+

@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+    Attendance
+{% endblock %}
+
+{% block header %}<h1>Sign Attendance</h1>{% endblock%}
+{% block content %}
+    {% for attendance in attendances %}
+        <div style=" margin:5px; width: 200px; padding: 10px; border: 1px solid gray; border-radius: 5px">
+            <p>Study Mode: {{ attendance['mode_of_study']}}</p>
+            <p>Date: {{ attendance['attendanceDate']}} </p>
+            <form method="POST">
+                <input  style="display: none" type="text" name="stNumber" value="{{ g.student['studentNumber']}}">
+                <input style="display: none" type="text" name="atId" value="{{ attendance['attendanceId'] }}">
+                <input type="submit" value="present">
+            </form>
+        </div>
+    {% endfor %}
+
+{% endblock%}
+

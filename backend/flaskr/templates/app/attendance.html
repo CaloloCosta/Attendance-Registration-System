@@ -17,8 +17,8 @@
     <input type="radio" name="isOpen" id="" value="False" style="display: inline">Close<br>
     <label for="mode_of_study">Study Mode</label>
     <select name="mode_of_study" id="">
-        <option>Full Mode</option>
-        <option>Part Time</option>
+        <option value="FM">Full Mode</option>
+        <option value="PT">Part Time</option>
     </select>
     <input type="text" name="id" style="display: none">
     <input type="submit" value="Create">
@@ -31,6 +31,7 @@
         <th>Study Mode</th>
         <th>Status</th>
         <th>Change Status</th>
+        <th>Action</th>
     </tr>
 {% for attendance in attendances %}
     <tr>
@@ -56,6 +57,7 @@
                 </form>
             </td>
         {% endif %}
+        <td><a href="{{ url_for('at.seeAttendance', atId=attendance['attendanceId']) }}">See</a></td>
     </tr>
 {% endfor %}
 </table>

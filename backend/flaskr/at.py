@@ -22,7 +22,6 @@ def index():
 def attendance():
     db = get_db()
     attendances = db.execute('SELECT * FROM attendance').fetchall() 
-    print(request)
     if request.method == 'POST':
         error = None
         if request.form['id']:
@@ -110,3 +109,48 @@ def register():
                 return redirect(url_for('at.register'))
         flash(error)
     return render_template('app/register.html')
+
+@bp.route('/markAttendance', methods = ('GET','POST'))
+@login_required
+def markAttendance():
+    db = get_db()
+    if request.method == 'POST':
+        atId = request.form['atId'];
+        stNumber = request.form['stNumber']
+        error = None
+        if not atId:
+            error = 'attendance id is required'
+        elif not stNumber:
+            error = 'Student number is required'
+        if error is None:
+            if db.execute(
+                'SELECT * FROM markAttendance WHERE attendanceId = ? AND studentNumber = ?',(atId,stNumber)).fetchone() is not None:
+                error = 'Attendance signed already'
+            else:
+                db.execute(
+                    'INSERT INTO markAttendance VALUES(?,?,?)',(atId,stNumber,True)
+                )
+                db.commit()
+                return redirect(url_for('at.markAttendance'))
+
+    ms = g.student['mode_of_study']
+    attendances = db.execute(
+        'SELECT * FROM attendance WHERE mode_of_study like ? AND isOPen = ?',(ms,True)
+    )
+   
+    return render_template('app/markAttendance.html', attendances = attendances )
+
+
+@bp.route('/seeAttendance/<atId>')
+@login_required
+def seeAttendance(atId):
+    db = get_db()
+    print(atId)
+    t = int(atId)
+    attendances = db.execute(
+            'SELECT st.studentNumber, st.surname, at.attendanceDate, at.isOpen, ma.present, at.mode_of_study FROM markAttendance as ma Join student as st on st.studentNumber = ma.studentNumber JOIN attendance as at ON at.attendanceId = ma.attendanceId WHERE ma.attendanceId = ?',(t,)
+    ).fetchall()
+    return render_template('app/seeAttendance.html', attendances = attendances )
+
+    
+    
