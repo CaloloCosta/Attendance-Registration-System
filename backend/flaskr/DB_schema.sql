@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 DROP TABLE IF EXISTS student;
 DROP TABLE IF EXISTS lecturer;
 DROP TABLE IF EXISTS attendance;
@@ -5,6 +6,15 @@ DROP TABLE IF EXISTS markAttendance;
 DROP TABLE IF EXISTS user;
 
 CREATE TABLE user(
+=======
+-- DROP TABLE IF EXISTS student;
+-- DROP TABLE IF EXISTS lecturer;
+-- DROP TABLE IF EXISTS attendance;
+-- DROP TABLE IF EXISTS markAttendance;
+-- DROP TABLE IF EXISTS user;
+
+CREATE TABLE user (
+>>>>>>> 6cb4c71080988cf6f26abdbea96f6b2b3071a538
     id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     username TEXT NOT NULL,
     password TEXT NOT NULL
@@ -12,7 +22,11 @@ CREATE TABLE user(
 
 
 
+<<<<<<< HEAD
 CREATE TABLE student(
+=======
+CREATE TABLE student (
+>>>>>>> 6cb4c71080988cf6f26abdbea96f6b2b3071a538
     studentNumber TEXT UNIQUE PRIMARY KEY,
     surname TEXT NOT NULL,
     initials TEXT NOT NULL,
@@ -21,7 +35,11 @@ CREATE TABLE student(
     password TEXT NULL
 );
 
+<<<<<<< HEAD
 CREATE TABLE lecturer(
+=======
+CREATE TABLE lecturer (
+>>>>>>> 6cb4c71080988cf6f26abdbea96f6b2b3071a538
     lecturerId TEXT UNIQUE NOT NULL PRIMARY KEY,
     surname TEXT NOT NULL,
     initials TEXT NOT NULL,
