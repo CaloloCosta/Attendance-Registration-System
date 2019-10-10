@@ -213,13 +213,10 @@ def seeAttendance(atId):
             # insert to attendance if not exist
             if db.execute(
                     'SELECT * FROM markAttendance WHERE attendanceId = ? AND studentNumber = ?',
-                    (t, s_id)).fetchone() is not None:
-                print("attendance already exists", s_id)
-            else:
-                db.execute(
-                    'INSERT INTO markAttendance VALUES(?,?,?)', (t, s_id, False)
-                )
+                    (t, s_id)).fetchone() is None:
+                db.execute('INSERT INTO markAttendance VALUES(?,?,?)', (t, s_id, False))
                 db.commit()
+
     attendances_final = db.execute(sql, params).fetchall()
     if attendances_final:
         return render_template('app/seeAttendance.html', attendances=attendances_final)
