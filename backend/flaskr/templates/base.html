@@ -16,7 +16,7 @@
         <li><a href="#">{{ g.lecturer['lecturerId'] }}</a></li>
         {% elif g.student %}
         <li><a href="{{ url_for('at.markAttendance') }}">Mark Attendence</a></li>
-        <li><a href="#">{{ g.student['studentNumber'] }}</a></li>
+        <li><a href="{{ url_for('at.seeStudent',stNumber=g.student['studentNumber']) }}">See Profile</a></li>
         <li><a href="{{ url_for('auth.logout') }}">Log out</a></li>
         {% elif g.admin %}
         <li><a href="{{ url_for('at.register') }}">Register</a></li>

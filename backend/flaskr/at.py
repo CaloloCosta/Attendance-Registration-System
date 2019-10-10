@@ -141,6 +141,37 @@ def markAttendance():
     return render_template('app/markAttendance.html', attendances = attendances )
 
 
+@bp.route('/seeStudent/<stNumber>')
+@login_required
+def seeStudent(stNumber = None):
+    stNumber = stNumber
+    db = get_db()
+    student = db.execute('SELECT * FROM Student WHERE studentNumber = ?',(stNumber,)).fetchone()
+    totalAttendance = db.execute('SELECT COUNT(attendanceId) as total FROM attendance WHERE mode_of_study like ?',(student['mode_of_study'],)).fetchall()
+    ta = totalAttendance[0]['total']
+    totalPresence = db.execute('SELECT COUNT(studentNumber) as st FROM markAttendance WHERE studentNumber like ?',(student['studentNumber'],)).fetchall()
+    tp = totalPresence[0]['st']
+    print(tp)
+    percentage = 0
+    if(ta > 0):
+        percentage = (tp/ta)*100
+    percentage = int(percentage)
+    return render_template('app/seeStudent.html',student = student, percentage = percentage)
+   
+
+@bp.route('/seeStudents',methods=("POST","GET"))
+@login_required
+def seeStudents():
+    db = get_db()
+    if request.method == 'POST':
+        filter = request.form['filter']
+        if filter:
+            students = db.execute("SELECT * FROM student WHERE programme like ? OR mode_of_study like ?",(filter,filter,)).fetchall()
+            return render_template('app/seeStudents.html',students = students)
+    students = db.execute('SELECT * FROM student').fetchall()
+    return render_template('app/seeStudents.html',students = students)
+
+   
 @bp.route('/seeAttendance/<atId>')
 @login_required
 def seeAttendance(atId):

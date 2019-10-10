@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+    See students
+{% endblock %}
+
+{% block header %}<h1>Students</h1>{% endblock%}
+
+{% block content %}
+    <div>
+        <h3>Student Details</h3>
+        <p>Student Number: {{ student['studentNumber'] }}</p>
+        <p>Surname: {{ student['surname'] }}</p>
+        <p>Initials: {{ student['initials'] }} </p>
+        <p>Mode of study: {{ student['mode_of_study'] }}</p>
+        <p>Presence: {{ percentage}} % </p>
+    </div>
+{% endblock%}
+

@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+    See students
+{% endblock %}
+
+{% block header %}<h1>Students</h1>{% endblock%}
+
+{% block content %}
+<form action="" method="POST">
+    <label for="filter">Filter by: </label>
+    <select name="filter" id="">
+        <option value="Computer Science">Computer Science</option>
+        <option value="Geo IT">Geo IT</option>
+        <option value="FM">Full Time</option>
+        <option value="PT">Part Time</option>
+    </select>
+    <input type="submit" value="Filter">
+</form>
+<table>
+    <h1>{{ test }}</h1>
+    <tr>
+        <th>Student Number</th>
+        <th>Surname</th>
+        <th>Programme</th>
+        <th>Study Mode</th>
+        <th>Attendance %</th>
+        <th>Action</th>
+    </tr>
+    {% for student in students%}
+    <tr>
+        <td>{{ student['studentNumber']}}</td>
+        <td>{{ student['surname']}}</td>
+        <td>{{ student['programme']}}</td>
+        <td>{{ student['mode_of_study']}}</td>
+        <td><a href="{{ url_for('at.seeStudent',stNumber=student['studentNumber'])}}">See</a></td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock%}
+
