@@ -17,8 +17,8 @@ def login():
         db = get_db()
         print(username)
         error = None
-        #db.execute('INSERT INTO user (username,password) values(?,?)',(username,generate_password_hash('admin')))
-        #db.commit()
+        # db.execute('INSERT INTO user (username,password) values(?,?)',(username,generate_password_hash('admin')))
+        # db.commit()
         # u = db.execute('SELECT * FROM student').fetchone()
         # print('user: ',u['studentNumber'])
         if role == 'admin':
