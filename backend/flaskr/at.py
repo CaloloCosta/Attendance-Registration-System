@@ -126,17 +126,19 @@ def markAttendance():
             error = 'Student number is required'
         if error is None:
             if db.execute(
-                    'SELECT * FROM markAttendance WHERE attendanceId = ? AND studentNumber = ?',
-                    (atId, stNumber)).fetchone() is not None:
-                error = 'Attendance signed already'
-            else:
+                    'SELECT * FROM markAttendance WHERE attendanceId = ? AND studentNumber = ? AND present=?',
+                    (atId, stNumber, False)).fetchone() is not None:
                 sql = """
-                    UPDATE markAttendance
-                    SET present = ? 
-                    WHERE attendanceId = ? AND studentNumber = ?;
+                        UPDATE markAttendance
+                        SET present = ?
+                        WHERE attendanceId = ? AND studentNumber = ?;
                     """
                 params = (True, atId, stNumber)
                 db.execute(sql, params)
+                db.commit()
+                return redirect(url_for('at.markAttendance'))
+            else:
+                db.execute('INSERT INTO markAttendance VALUES(?,?,?)', (atId, stNumber, True))
                 db.commit()
                 return redirect(url_for('at.markAttendance'))
 
@@ -222,3 +224,14 @@ def seeAttendance(atId):
         return render_template('app/seeAttendance.html', attendances=attendances_final)
     else:
         return redirect(url_for('at.attendance'))
+
+
+def view_student_attendance_log(stNumber):
+    db = get_db()
+    params = (int(stNumber),)
+    sql = """SELECT st.studentNumber, st.surname, at.attendanceDate, at.isOpen, ma.present, at.mode_of_study
+                FROM markAttendance as ma
+                Join student as st ON st.studentNumber = ma.studentNumber
+                JOIN attendance as at ON at.attendanceId = ma.attendanceId
+                WHERE st.studentNumber= ? """
+    attendances = db.execute(sql, params).fetchall()
