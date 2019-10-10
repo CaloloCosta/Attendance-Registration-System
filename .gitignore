@@ -1,6 +1,7 @@
 backend/development/
 backend/myenv/
 backend/flaskr.egg-info/
+backend/.idea/
 backend/flaskr/*.pyc
 backend/flaskr/__pycache__/
 backend/instance/
