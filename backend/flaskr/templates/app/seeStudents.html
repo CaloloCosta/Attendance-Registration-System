@@ -18,14 +18,12 @@
     </select>
     <input type="submit" value="Filter">
 </form>
-<table>
-    <h1>{{ test }}</h1>
+<table class="table">
     <tr>
         <th>Student Number</th>
         <th>Surname</th>
         <th>Programme</th>
         <th>Study Mode</th>
-        <th>Attendance %</th>
         <th>Action</th>
     </tr>
     {% for student in students%}
