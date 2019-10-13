@@ -21,10 +21,10 @@ Linux: development/bin/activate
 ```
 ##### Set the environment variables
 
-Replace ```set``` with ```export``` on a Linux machine
+Replace ```export``` with ```set``` on a Windows machine
 ```
-set FLASK_APP=flaskr
-set FLASK_ENV=development
+export FLASK_APP=flaskr
+export FLASK_ENV=development
 ```
 ##### Run the web server
 ```
