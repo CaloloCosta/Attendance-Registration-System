@@ -11,7 +11,8 @@
 
 
 <h1>See attedances</h1>
-<table border="1">
+<table class="table">
+    <thead>
     <tr>
         <th>Date: {{attendances[0]['attendanceDate']}}</th>
     </tr>
@@ -23,6 +24,7 @@
         <th>Surname</th>
         <th>Present</th>
     </tr>
+</thead>
 {% for attendance in attendances %}
     <tr>
         <td>{{ attendance['studentNumber'] }}</td>

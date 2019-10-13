@@ -7,19 +7,26 @@
 
 {% block header %}<h1>Login</h1>{% endblock%}
 {% block content %}
+    <div class="login-box">
     <form action="" method="POST">
-        <label for="id">Student/Lecturer ID</label>
-        <input name="id" id="id" type="text" placeholder="21800731/ccosta">
-        <label for="password">Password</label>
-        <input name="password" id="password" type="text">
+        <!-- <label for="id">Student/Lecturer ID</label> -->
+        <div class="textbox">
+        <i class="fa fa-user" aria-hidden="true"></i>
+        <input name="id" id="id" type="text" placeholder="Username">
+        </div>
+        
+        <div class="textbox">
+                <i class="fa fa-lock" aria-hidden="true"></i>
+        <input name="password" id="password" type="password" placeholder="Password">
+        </div>
         <label for="role">Role</label>
-        <select name="role" id="">
+        <select class="select" name="role" id="">
             <option value="student">Student</option>
             <option value="lecturer">Lecturer</option>
             <option value="admin">Admin</option>
         </select>
-        <input type="submit" value="login">
+        <input class="btn" type="submit" value="login">
     </form>
-
+    </div>
 {% endblock%}
 

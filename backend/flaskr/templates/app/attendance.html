@@ -10,29 +10,37 @@
 {% block content %}
 
 <form action="" method="POST">
+    <div class="form-group">
     <label for="date">Date</label>
-    <input type="date" name="date" id="">
+    <input class="form-control" type="date" name="date" id="">
+    </div>
+    <div class="form-check">
     <label for="isOpen">attendance Status</label><br>
-    <input type="radio" name="isOpen" id="" value="True" style="display: inline">Open<br>
-    <input type="radio" name="isOpen" id="" value="False" style="display: inline">Close<br>
+    <input class="form-check-input" type="radio" name="isOpen" id="" value="True" style="display: inline">Open<br>
+    <input class="form-check-input" type="radio" name="isOpen" id="" value="False" style="display: inline">Close<br>
+    </div>
+    <div class="form-group">
     <label for="mode_of_study">Study Mode</label>
-    <select name="mode_of_study" id="">
+    <select class="form-control" name="mode_of_study" id="">
         <option value="FM">Full Mode</option>
         <option value="PT">Part Time</option>
     </select>
+    </div>
     <input type="text" name="id" style="display: none">
-    <input type="submit" value="Create">
+    <input class="btn" type="submit" value="Create">
 </form>
 <h1>See attedances</h1>
-<table border="1">
+<table class="table">
+    <thead>
     <tr>
-        <th>ID</th>
-        <th>Date</th>
-        <th>Study Mode</th>
-        <th>Status</th>
-        <th>Change Status</th>
-        <th>Action</th>
+        <th scope="col">ID</th>
+        <th scope="col">Date</th>
+        <th scope="col">Study Mode</th>
+        <th scope="col">Status</th>
+        <th scope="col">Change Status</th>
+        <th scope="col">Action</th>
     </tr>
+</thead>
 {% for attendance in attendances %}
     <tr>
         <td>{{ attendance['attendanceId'] }}</td>

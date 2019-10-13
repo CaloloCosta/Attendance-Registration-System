@@ -8,26 +8,42 @@
 {% block header %}<h1>Register new Student or Lecturer</h1>{% endblock%}
 {% block content %}
     <form action="" method="POST">
+        <div class="form-group">
         <label for="id">Student/Lecturer ID</label>
-        <input name="id" id="id" type="text" placeholder="21800731/ccosta">
+        <input class="form-control" name="id" id="id" type="text" placeholder="21800731/ccosta">
+        </div>
+        <div class="form-group">
         <label for="surname">Surname</label>
-        <input name="surname" id="surname" type="text" placeholder="Doe">
+        <input class="form-control" name="surname" id="surname" type="text" placeholder="Doe">
+        </div>
+        <div class="form-group">
         <label for="initial">Initials</label>
-        <input name="initials" id="initials" type="text" placeholder="cdc">
+        <input class="form-control" name="initials" id="initials" type="text" placeholder="cdc">
+        </div>
+        <div class="form-group">
         <label for="role">Role</label>
-        <select name="role" id="">
+        <select class="form-control" name="role" id="">
             <option value="student">Student</option>
             <option value="lecturer">Lecturer</option>
         </select>
+        </div>
+        <div class="form-group">
         <label for="programme">Programme</label>
         <span>For Students only</span>
-        <input name="programme" id="programme" type="text" placeholder="Computer science">
+        <select class="form-control" name="programme" id="programme">
+            <option value="Computer Science">Computer Science</option>
+            <option value="Geo IT">Geo IT</option>
+            <option value="Informatics">Informatics</option>
+        </select>
+        </div>
+        <div class="form-group">
         <label for="mode_of_study">Study Mode</label>
-        <select name="mode_of_study" id="">
+        <select class="form-control" name="mode_of_study" id="">
             <option value="FM">Full Mode</option>
             <option value="PT">Part Time</option>
         </select>
-        <input type="submit" value="Register">
+        </div>
+        <input class="btn" type="submit" value="Register">
     </form>
 
 {% endblock%}

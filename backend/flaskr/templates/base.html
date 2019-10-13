@@ -4,30 +4,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap/css/bootstrap.min.css') }}">
     <title>{% block title %}{% endblock%} - AS</title>
 </head>
 <body>
-    <nav>
-        {% if g.lecturer %}
-        <li><a href="{{ url_for('at.attendance') }}">Create Attendence</a></li>
-        <li><a href="{{ url_for('at.attendance') }}">See Attendence</a></li>
-        <li><a href="{{ url_for('auth.logout') }}">Log out</a></li>
-        <li><a href="#">{{ g.lecturer['lecturerId'] }}</a></li>
-        {% elif g.student %}
-        <li><a href="{{ url_for('at.markAttendance') }}">Mark Attendence</a></li>
-        <li><a href="{{ url_for('at.seeStudent',stNumber=g.student['studentNumber']) }}">See Profile</a></li>
-        <li><a href="{{ url_for('auth.logout') }}">Log out</a></li>
-        {% elif g.admin %}
-        <li><a href="{{ url_for('at.register') }}">Register</a></li>
-        <li><a href="#">{{ g.admin['username'] }}</a></li>
-        <li><a href="{{ url_for('auth.logout') }}">Log out</a></li>
-        {% else %}
-        <li><a href="{{ url_for('auth.login') }}">Log in</a></li>
-        {% endif %}
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                {% if g.lecturer %}
+                <a class="nav-item nav-link"  href="{{ url_for('at.attendance') }}">Create Attendence</a>
+                <a class="nav-item nav-link"  href="{{ url_for('at.attendance') }}">See Attendence</a>
+                <a class="nav-item nav-link"  href="{{ url_for('at.seeStudents') }}">See Students</a>
+                <a class="nav-item nav-link"  href="{{ url_for('auth.logout') }}">Log out</a>
+                <a class="nav-item nav-link"  href="#">{{ g.lecturer['lecturerId'] }}</a>
+                {% elif g.student %}
+                <a class="nav-item nav-link"  href="{{ url_for('at.markAttendance') }}">Mark Attendence</a>
+                <a class="nav-item nav-link" href="{{ url_for('at.seeStudent',stNumber=g.student['studentNumber']) }}">See Profile</a>
+                <a class="nav-item nav-link" href="{{ url_for('auth.logout') }}">Log out</a>
+                {% elif g.admin %}
+                <a class="nav-item nav-link"  href="{{ url_for('at.register') }}">Register</a>
+                <a class="nav-item nav-link"  href="#">{{ g.admin['username'] }}</a>
+                <a class="nav-item nav-link"  href="{{ url_for('auth.logout') }}">Log out</a>
+                {% else %}
+                <a class="nav-item nav-link"  href="{{ url_for('auth.login') }}">Log in</a>
+                {% endif %}
+            </div>
+        </div>
     </nav>
 
-    <div class="content">
+    <div class="container content">
         {% block header %}{% endblock%}
         {% block content %}{% endblock%}
     </div>
