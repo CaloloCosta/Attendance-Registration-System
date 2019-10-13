@@ -25,19 +25,19 @@ def login():
             user = db.execute(
             'SELECT * FROM user WHERE username = ?',(username,)
             ).fetchone()
-            if sessionHandler(user,role,user['id'],password,error):
+            if user is not None and sessionHandler(user,role,user['id'],password,error):
                 return redirect(url_for('index'))
         elif role == 'lecturer':
             user = db.execute(
                 'SELECT * FROM lecturer WHERE lecturerId = ?',(username,)
             ).fetchone()
-            if sessionHandler(user,role,user['lecturerId'],password,error):
+            if user is not None and sessionHandler(user,role,user['lecturerId'],password,error):
                 return redirect(url_for('index'))
         elif role == 'student':
             user = db.execute(
                 'SELECT * FROM student WHERE studentNumber = ?',(username,)
             ).fetchone()
-            if sessionHandler(user,role,user['studentNumber'],password,error):
+            if user is not None and sessionHandler(user,role,user['studentNumber'],password,error):
                 return redirect(url_for('index'))
     return render_template('auth/login.html')
 
