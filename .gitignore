@@ -5,3 +5,10 @@ backend/.idea/
 backend/flaskr/*.pyc
 backend/flaskr/__pycache__/
 backend/instance/
+code/development/
+code/myenv/
+code/flaskr.egg-info/
+code/.idea/
+code/flaskr/*.pyc
+code/flaskr/__pycache__/
+code/instance/
