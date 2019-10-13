@@ -5,6 +5,9 @@ from flask import current_app, g
 from flask.cli import with_appcontext
 
 # connect to DB
+# from werkzeug.security import generate_password_hash
+
+
 def get_db():
     if 'db' not in g:
         g.db = sqlite3.connect(
@@ -28,6 +31,8 @@ def init_db():
     with current_app.open_resource('DB_schema.sql') as f:
         # execute the sql schema
         db.executescript(f.read().decode('utf8'))
+        # db.execute("INSERT INTO user (username,password) values(?,?)", ("admin", generate_password_hash('admin')))
+        # db.commit()
 
 @click.command('init-db')
 @with_appcontext
