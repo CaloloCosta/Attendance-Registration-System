@@ -2,13 +2,14 @@
 First project for Software Engineering 1
 
 
-## How to install?
-<ol>
-  <li>In the folder backend</li>
-  <li>Create the virtualenv  and activate it: <code>python3 -m venv development<br> . development/bin/activate</code>
-    <br>On Windows: <code>$ py -3 -m venv development<br> development\Scripts\activate.bat</code></li>
-  <li> Install flaskr: <code>pip install -e .</code></li>
-</ol>
+## Installation
+__*Backend*__
+```
+cd backend
+virtualenv development
+development\Scripts\activate.bat
+pip install -e .
+```
 
 ## How to run
 
