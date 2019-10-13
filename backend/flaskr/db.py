@@ -5,7 +5,7 @@ from flask import current_app, g
 from flask.cli import with_appcontext
 
 # connect to DB
-# from werkzeug.security import generate_password_hash
+from werkzeug.security import generate_password_hash
 
 
 def get_db():
@@ -16,6 +16,7 @@ def get_db():
         )
         g.db.row_factory = sqlite3.Row
     return g.db
+
 
 # close the connection
 def close_db(e = None):
@@ -31,14 +32,16 @@ def init_db():
     with current_app.open_resource('DB_schema.sql') as f:
         # execute the sql schema
         db.executescript(f.read().decode('utf8'))
-        # db.execute("INSERT INTO user (username,password) values(?,?)", ("admin", generate_password_hash('admin')))
-        # db.commit()
+        db.execute("INSERT INTO user (username,password) values(?,?)", ("admin", generate_password_hash('admin')))
+        db.commit()
+
 
 @click.command('init-db')
 @with_appcontext
 def init_db_command():
     init_db()
     click.echo('Initialized the database.')
+
 
 def init_app(app):
     app.teardown_appcontext(close_db)
